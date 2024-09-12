@@ -2,7 +2,6 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import request from './js/pixabay-api';
 import gallerys from './js/render-functions';
-import { paginationRender } from './js/render-functions';
 
 const forms = document.querySelector('.search');
 const loader = document.querySelector('.loader');
@@ -13,7 +12,7 @@ const simpleBox = new SimpleLightbox('.gallery a', {
 });
 const buttonLoad = document.querySelector('.button-load');
 
-let pages = 1;
+export let pages = 1;
 export let perPage = 15;
 let textQuery = '';
 // const render = request(pages);
@@ -51,7 +50,7 @@ async function reloadingCards(event) {
   try {
     pages += 1;
     const posts = await request(textQuery, pages);
-    paginationRender(posts.data.hits);
+    gallerys(posts.data.hits);
 
     console.log(pages);
 
