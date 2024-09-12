@@ -13,22 +13,26 @@ const simpleBox = new SimpleLightbox('.gallery a', {
 });
 const buttonLoad = document.querySelector('.button-load');
 
-export let pages = 1;
+let pages = 1;
 export let perPage = 15;
-const render = request();
+let textQuery = '';
+// const render = request(pages);
+console.log(textQuery);
 
 function searchText(event) {
   event.preventDefault();
   const input = event.target;
   const text = input.elements.text.value.trim();
   const textSearch = text.toLowerCase();
+  console.log(textSearch);
+  textQuery = textSearch;
   if (textSearch === '') {
     return;
   }
 
   loader.classList.toggle('js-non-display');
 
-  request(textSearch).then(response => {
+  request(textSearch, pages).then(response => {
     const imgs = response.data.hits;
     const numberOfCards = response.data.total;
 
@@ -47,9 +51,11 @@ forms.addEventListener('submit', searchText);
 
 async function reloadingCards(event) {
   try {
+    const posts = await request(textQuery, pages);
     pages += 1;
-    const posts = await render;
     paginationRender(posts.data.hits);
+    console.log(pages);
+
     console.log(posts.data.hits);
   } catch (error) {
     console.log(error);

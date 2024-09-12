@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { pages } from '../main';
+// import { pages } from '../main';
 import { perPage } from '../main';
-export default async function request(textSearch) {
+
+export default async function request(textSearch, pages) {
   const savedQuery = await axios
     .get('https://pixabay.com/api/?', {
       params: {
@@ -11,7 +12,7 @@ export default async function request(textSearch) {
         orientation: 'horizontal',
         safesearch: true,
         per_page: perPage,
-        page: pages,
+        page: `${pages}`,
       },
     })
     .catch(error => console.log(error));
