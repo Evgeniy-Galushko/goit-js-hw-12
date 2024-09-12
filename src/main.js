@@ -15,6 +15,7 @@ const buttonLoad = document.querySelector('.button-load');
 
 export let pages = 1;
 export let perPage = 15;
+const render = request();
 
 function searchText(event) {
   event.preventDefault();
@@ -36,6 +37,7 @@ function searchText(event) {
     buttonLoad.classList.add('js-button-load');
 
     simpleBox.refresh();
+    // return imgs;
   });
 
   // forms.reset();
@@ -45,10 +47,10 @@ forms.addEventListener('submit', searchText);
 
 async function reloadingCards(event) {
   try {
-    const posts = await request();
-    console.log(posts.data.hits);
-    paginationRender(posts);
     pages += 1;
+    const posts = await render;
+    paginationRender(posts.data.hits);
+    console.log(posts.data.hits);
   } catch (error) {
     console.log(error);
   }
