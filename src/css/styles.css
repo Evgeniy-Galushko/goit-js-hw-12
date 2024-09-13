@@ -131,6 +131,7 @@ body {
 
 .gallery .gallery-card {
   border: 1px solid #808080;
+  box-shadow: 10px 10px 8px 2px #808080 ;
   width: 360px;
   height: 200px;
 }

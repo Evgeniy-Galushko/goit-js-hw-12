@@ -4,6 +4,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import request from './js/pixabay-api';
 import gallerys from './js/render-functions';
+import { render } from './js/render-functions';
 
 const forms = document.querySelector('.search');
 const loader = document.querySelector('.loader');
@@ -39,8 +40,6 @@ function searchText(event) {
 
   request(textSearch, pages).then(response => {
     const imgs = response.data.hits;
-    console.log(imgs);
-
     gallerys(imgs);
     buttonLoad.classList.add('js-button-load');
     if (imgs.length === 0) {
@@ -66,7 +65,7 @@ async function reloadingCards(event) {
     loaders.classList.toggle('js-non-display-pagination');
     buttonLoad.classList.toggle('js-button-load');
     const posts = await request(textQuery, pages);
-    gallerys(posts.data.hits);
+    render(posts.data.hits);
     loaders.classList.toggle('js-non-display-pagination');
 
     const numberOfPictures = posts.data.total;
