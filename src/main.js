@@ -4,7 +4,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import request from './js/pixabay-api';
 import gallerys from './js/render-functions';
-import { render } from './js/render-functions';
+const gallery = document.querySelector('.gallery');
 
 const forms = document.querySelector('.search');
 const loader = document.querySelector('.loader');
@@ -16,45 +16,43 @@ const simpleBox = new SimpleLightbox('.gallery a', {
 });
 const buttonLoad = document.querySelector('.button-load');
 
-export let pages = 1;
+export let pages = 0;
 export let perPage = 15;
 let textQuery = '';
-// const render = request(pages);
 
-function searchText(event) {
-  event.preventDefault();
-  const input = event.target;
-  const text = input.elements.text.value.trim();
-  const textSearch = text.toLowerCase();
-  textQuery = textSearch;
-  if (textSearch === '') {
-    iziToast.warning({
-      backgroundColor: '#F4A460',
-      position: 'center',
-      message: "Sorry, you haven't entered anything!",
-    });
-    button.disabled = true;
-  }
+async function searchText(event) {
+  try {
+    gallery.innerHTML = '';
+    pages = 1;
+    event.preventDefault();
+    const input = event.target;
+    const text = input.elements.text.value.trim();
+    const textSearch = text.toLowerCase();
+    textQuery = textSearch;
+    if (textSearch === '') {
+      iziToast.warning({
+        backgroundColor: '#F4A460',
+        position: 'center',
+        message: "Sorry, you haven't entered anything!",
+      });
+      button.disabled = true;
+    }
 
-  loader.classList.toggle('js-non-display');
+    loader.classList.toggle('js-non-display');
 
-  request(textSearch, pages).then(response => {
-    const imgs = response.data.hits;
+    const firstRequest = await request(textSearch, pages);
+    const imgs = firstRequest.data.hits;
     gallerys(imgs);
     buttonLoad.classList.add('js-button-load');
-    if (imgs.length === 0) {
+    if (imgs.length === 0 || imgs.length < perPage) {
       buttonLoad.classList.toggle('js-button-load');
     }
     loader.classList.toggle('js-non-display');
 
     simpleBox.refresh();
-    // const galleryCard = document.querySelector('.gallery-card');
-    // const domRect = galleryCard.getBoundingClientRect();
-    // window.scrollBy(0, `${domRect.height * 2}`);
-    // console.log(domRect);
-  });
-
-  // forms.reset();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 forms.addEventListener('submit', searchText);
@@ -65,19 +63,19 @@ async function reloadingCards(event) {
     loaders.classList.toggle('js-non-display-pagination');
     buttonLoad.classList.toggle('js-button-load');
     const posts = await request(textQuery, pages);
-    render(posts.data.hits);
+    gallerys(posts.data.hits);
     loaders.classList.toggle('js-non-display-pagination');
 
     const numberOfPictures = posts.data.total;
     const numberOfPages = Math.ceil(numberOfPictures / perPage);
     simpleBox.refresh();
-    if (numberOfPages <= pages) {
-      buttonLoad.classList.remove('js-button-load');
+    if (numberOfPages <= pages || numberOfPages < perPage) {
       iziToast.warning({
         backgroundColor: '#FF4500',
         position: 'center',
         message: "We're sorry, but you've reached the end of search results.",
       });
+      return buttonLoad.classList.remove('js-button-load');
     }
     buttonLoad.classList.toggle('js-button-load');
 
