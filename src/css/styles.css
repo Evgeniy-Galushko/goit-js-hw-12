@@ -24,6 +24,7 @@ a {
 }
 
 button {
+  display: block;
   cursor: pointer;
 }
 
@@ -39,6 +40,9 @@ body {
 }
 
 .search {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
   margin-top: 36px;
   padding-left: 378px;
 }

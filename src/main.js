@@ -65,7 +65,9 @@ async function reloadingCards(event) {
     const posts = await request(textQuery, pages);
     gallerys(posts.data.hits);
     loaders.classList.toggle('js-non-display-pagination');
-    gallery.scrollBy({ left: 400, top: 0, behavior: 'smooth' });
+    // gallery.scrollBy({ left: 400, top: 0, behavior: 'smooth' });
+
+    simpleBox.refresh();
 
     const numberOfPictures = posts.data.total;
     const numberOfPages = Math.ceil(numberOfPictures / perPage);
@@ -77,11 +79,9 @@ async function reloadingCards(event) {
         position: 'center',
         message: "We're sorry, but you've reached the end of search results.",
       });
+      // buttonLoad.classList.toggle('js-button-load');
       buttonLoad.classList.remove('js-button-load');
     }
-    // buttonLoad.classList.toggle('js-button-load');
-
-    simpleBox.refresh();
 
     const galleryCard = document.querySelector('.gallery-card');
     const domRect = galleryCard.getBoundingClientRect();
