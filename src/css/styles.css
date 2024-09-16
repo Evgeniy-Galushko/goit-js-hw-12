@@ -124,7 +124,6 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 24px;
-    overflow: scroll;
 }
 
 .gallery .gallery-card {
