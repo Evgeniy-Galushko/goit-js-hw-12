@@ -77,9 +77,9 @@ async function reloadingCards(event) {
         position: 'center',
         message: "We're sorry, but you've reached the end of search results.",
       });
-      return buttonLoad.classList.remove('js-button-load');
+      buttonLoad.classList.remove('js-button-load');
     }
-    buttonLoad.classList.toggle('js-button-load');
+    // buttonLoad.classList.toggle('js-button-load');
 
     simpleBox.refresh();
 
