@@ -68,10 +68,6 @@ body {
   border-color: #4E75FF;
 }
 
-.search input:active {
-  color: #000;
-}
-
 .search button {
   border-radius: 8px;
   padding: 8px 16px;
@@ -94,7 +90,7 @@ body {
 .button-load{
   display: none;
   border-radius: 8px;
-  /* align-content: center; */
+  cursor: pointer;
   padding: 8px 16px;
   width: 93px;
   height: 24px;
@@ -128,6 +124,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 24px;
+    overflow: scroll;
 }
 
 .gallery .gallery-card {

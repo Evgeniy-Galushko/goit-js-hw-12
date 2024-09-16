@@ -65,11 +65,13 @@ async function reloadingCards(event) {
     const posts = await request(textQuery, pages);
     gallerys(posts.data.hits);
     loaders.classList.toggle('js-non-display-pagination');
+    gallery.scrollBy({ left: 400, top: 0, behavior: 'smooth' });
 
     const numberOfPictures = posts.data.total;
     const numberOfPages = Math.ceil(numberOfPictures / perPage);
-    simpleBox.refresh();
-    if (numberOfPages <= pages || numberOfPages < perPage) {
+    console.log(numberOfPages);
+
+    if (numberOfPages <= pages) {
       iziToast.warning({
         backgroundColor: '#FF4500',
         position: 'center',
@@ -79,9 +81,11 @@ async function reloadingCards(event) {
     }
     buttonLoad.classList.toggle('js-button-load');
 
+    simpleBox.refresh();
+
     const galleryCard = document.querySelector('.gallery-card');
     const domRect = galleryCard.getBoundingClientRect();
-    window.scrollBy(0, `${domRect.height * 2}`);
+    window.scrollBy({ top: `${domRect.height * 2}`, behavior: 'smooth' });
   } catch (error) {
     console.log(error);
   }
