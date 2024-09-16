@@ -73,6 +73,10 @@ async function reloadingCards(event) {
     const numberOfPages = Math.ceil(numberOfPictures / perPage);
     console.log(numberOfPages);
 
+    const galleryCard = document.querySelector('.gallery-card');
+    const domRect = galleryCard.getBoundingClientRect();
+    window.scrollBy({ top: `${domRect.height * 2}`, behavior: 'smooth' });
+
     if (numberOfPages <= pages) {
       iziToast.warning({
         backgroundColor: '#FF4500',
@@ -80,12 +84,8 @@ async function reloadingCards(event) {
         message: "We're sorry, but you've reached the end of search results.",
       });
       // buttonLoad.classList.toggle('js-button-load');
-      buttonLoad.classList.remove('js-button-load');
+      return buttonLoad.classList.remove('js-button-load');
     }
-
-    const galleryCard = document.querySelector('.gallery-card');
-    const domRect = galleryCard.getBoundingClientRect();
-    window.scrollBy({ top: `${domRect.height * 2}`, behavior: 'smooth' });
   } catch (error) {
     console.log(error);
   }
