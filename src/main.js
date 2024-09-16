@@ -83,9 +83,9 @@ async function reloadingCards(event) {
         position: 'center',
         message: "We're sorry, but you've reached the end of search results.",
       });
-      // buttonLoad.classList.toggle('js-button-load');
       return buttonLoad.classList.remove('js-button-load');
     }
+    buttonLoad.classList.toggle('js-button-load');
   } catch (error) {
     console.log(error);
   }
