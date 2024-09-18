@@ -15,6 +15,8 @@ const simpleBox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 const buttonLoad = document.querySelector('.button-load');
+const buttonUp = document.querySelector('.button-up');
+const buttonDown = document.querySelector('.button-down');
 
 export let pages = 0;
 export let perPage = 15;
@@ -35,7 +37,7 @@ async function searchText(event) {
         position: 'center',
         message: "Sorry, you haven't entered anything!",
       });
-      button.disabled = true;
+      // button.disabled = true;
     }
 
     loader.classList.toggle('js-non-display');
@@ -44,8 +46,13 @@ async function searchText(event) {
     const imgs = firstRequest.data.hits;
     gallerys(imgs);
     buttonLoad.classList.add('js-button-load');
+    buttonUp.classList.add('js-button-up');
+    buttonDown.classList.add('js-button-down');
     if (imgs.length === 0 || imgs.length < perPage) {
       buttonLoad.classList.toggle('js-button-load');
+
+      buttonUp.classList.toggle('js-button-up');
+      buttonDown.classList.toggle('js-button-down');
     }
     loader.classList.toggle('js-non-display');
 
@@ -83,6 +90,7 @@ async function reloadingCards(event) {
         position: 'center',
         message: "We're sorry, but you've reached the end of search results.",
       });
+
       return buttonLoad.classList.remove('js-button-load');
     }
     buttonLoad.classList.toggle('js-button-load');

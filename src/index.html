@@ -12,15 +12,18 @@
     <main>
       <form class="search">
         <input type="text" name="text" placeholder="Search images..." />
-        <button type="submit" data-start>Search</button>
+        <button type="submit" data-start id="up">Search</button>
       </form>
       <span class="loader"></span>
+      <a class="button-up" href="#up">&#x2770;</a>
       <ul class="gallery">
-  
+      
       </ul>
-      <buttno class="button-load" type="button">Load more</buttno>
+      <a class="button-down" href="#down">&#x2771;</a>
+      <buttno class="button-load" type="button" >Load more</buttno>
       <span class="loaders"></span>
-    </main>
+      <div id="down"></div>
+      </main>
 
     <script type="module" src="./main.js"></script>
   </body>
