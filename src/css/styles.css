@@ -1,3 +1,9 @@
+@media(prefers-reduced-motion: no-preference){
+  :root{
+    scroll-behavior: smooth;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -39,6 +45,7 @@ img {
 body {
   max-width: 1440px;
   padding: 36px 156px;
+  /* scroll-behavior: smooth; */
 }
 
 .search {
@@ -126,11 +133,13 @@ body {
 /*============GALLERY=========== */
 
 .gallery {
+  position: relative;
   margin-top: 40px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 24px;
+    /* scroll-behavior: smooth; */
 }
 
 .gallery .gallery-card {
@@ -310,6 +319,9 @@ body {
     font-weight: 500;
     font-size: 40px;
     color: #000;
+      transition: all ease-in-out 0.5s;
+      scroll-behavior: smooth; 
+      
 }
 
 .button-down{
@@ -330,6 +342,8 @@ body {
     font-weight: 500;
     font-size: 40px;
     color: #000;
+      transition: all ease-in-out 0.5s;
+      scroll-behavior: smooth;
 }
 
 .button-down:hover, .button-up:hover{
